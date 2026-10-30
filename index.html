@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b13"><title>AutoCap — AI captions, made simple</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="ambient a1"></div><div class="ambient a2"></div>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-mark">A</span><span>Auto<span class="brand-accent">Cap</span></span></a>
+  <nav><a href="#workspace">Workspace</a><a href="#how">How it works</a></nav>
+  <div class="top-right"><span class="status-dot"></span><span id="apiStatus">Checking AI…</span><a class="github" href="https://github.com" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</header>
+<main>
+<section class="hero">
+  <div class="eyebrow"><span class="spark">✦</span> AI-POWERED CAPTION STUDIO</div>
+  <h1>Your words.<br><span class="gradient">Perfectly captioned.</span></h1>
+  <p class="hero-copy">Turn videos into scroll-stopping subtitles. Made for Hinglish, Hindi, Bengali and the languages we speak every day.</p>
+  <div class="hero-pills"><span>✦ Whisper AI</span><span>◉  Indian languages</span><span>↗ SRT · VTT · TXT</span></div>
+</section>
+
+<section class="workspace" id="workspace">
+  <div class="section-heading"><div><div class="eyebrow">YOUR WORKSPACE</div><h2>Caption studio</h2></div><span class="step-label">01 <i>/</i> UPLOAD</span></div>
+  <div class="studio-grid">
+    <div class="panel upload-panel">
+      <div class="panel-title"><span class="number">01</span><div><h3>Bring your media</h3><p>Upload a video or audio file to get started.</p></div></div>
+      <label class="dropzone" id="dropzone" for="mediaInput">
+        <input id="mediaInput" type="file" accept="video/*,audio/*">
+        <span class="upload-icon">↑</span><strong>Drop your video here</strong><span>or <u>browse files</u></span>
+        <small>MP4, MOV, WEBM, MP3, WAV · Up to 200 MB</small>
+      </label>
+      <div class="file-info hidden" id="fileInfo"><span class="file-icon">▣</span><div class="file-meta"><b id="fileName">video.mp4</b><small id="fileSize">0 MB</small></div><button id="removeFile" class="icon-btn" aria-label="Remove file">×</button></div>
+      <div class="field-label">CAPTION LANGUAGE</div>
+      <select id="language">
+        <option value="auto">Auto-detect language</option><option value="hi">Hindi</option><option value="bn">Bengali</option><option value="en">English</option><option value="gu">Gujarati</option><option value="mr">Marathi</option><option value="ta">Tamil</option><option value="te">Telugu</option><option value="pa">Punjabi</option><option value="ur">Urdu</option><option value="kn">Kannada</option><option value="ml">Malayalam</option>
+      </select>
+      <div class="mode-row"><div><b>Caption mode</b><small>Choose how you want to work</small></div><div class="segmented"><button class="active" id="autoMode">✦ Auto AI</button><button id="manualMode">✎ Manual</button></div></div>
+      <button class="primary-btn" id="generateBtn"><span>✦</span> Generate captions <span class="arrow">→</span></button>
+      <p class="fine-print" id="modeNote">AI transcription uses your configured Groq API key. Manual editing is always free.</p>
+      <div class="progress-wrap hidden" id="progressWrap"><div class="progress-head"><span id="progressText">Preparing audio…</span><span class="spinner"></span></div><div class="progress-track"><div class="progress-fill"></div></div></div>
+      <div class="error hidden" id="errorBox"></div>
+    </div>
+    <div class="panel preview-panel">
+      <div class="preview-top"><div><span class="live-dot"></span> LIVE PREVIEW</div><span class="preview-tag">9:16 · REELS</span></div>
+      <div class="video-stage" id="videoStage">
+        <video id="videoPreview" controls playsinline class="hidden"></video>
+        <div class="placeholder" id="placeholder"><div class="play-symbol">▶</div><b>Your preview lives here</b><span>Upload a video to see your captions in action</span></div>
+        <div class="caption-overlay" id="captionOverlay">Your captions<br>will appear here.</div>
+      </div>
+      <div class="preview-foot"><span>PREVIEW CANVAS</span><span id="previewTime">00:00 / 00:00</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="editor-section hidden" id="editorSection">
+  <div class="section-heading"><div><div class="eyebrow">MAKE IT YOURS</div><h2>Caption editor</h2></div><span class="step-label">02 <i>/</i> EDIT</span></div>
+  <div class="editor-grid">
+    <div class="panel editor-panel">
+      <div class="editor-head"><div><h3>Your transcript</h3><p id="segmentCount">0 caption segments</p></div><button class="small-btn" id="addSegment">＋ Add line</button></div>
+      <div class="segments" id="segments"></div>
+    </div>
+    <div class="panel style-panel">
+      <h3>Caption style</h3><p>Make every word feel on-brand.</p>
+      <label class="field-label" for="fontSelect">FONT</label><select id="fontSelect"><option value="Arial">Arial</option><option value="Georgia">Georgia</option><option value="Impact">Impact</option><option value="Trebuchet MS">Trebuchet MS</option></select>
+      <label class="field-label" for="fontSize">TEXT SIZE <span id="fontSizeValue">24px</span></label><input id="fontSize" type="range" min="16" max="42" value="24">
+      <label class="field-label">TEXT COLOR</label><div class="swatches"><button data-color="#ffffff" class="swatch selected" style="--swatch:#fff"></button><button data-color="#d9ff55" class="swatch" style="--swatch:#d9ff55"></button><button data-color="#78a7ff" class="swatch" style="--swatch:#78a7ff"></button><button data-color="#ff8eb5" class="swatch" style="--swatch:#ff8eb5"></button><button data-color="#ffd36b" class="swatch" style="--swatch:#ffd36b"></button></div>
+      <label class="field-label" for="bgOpacity">BACKGROUND OPACITY <span id="opacityValue">65%</span></label><input id="bgOpacity" type="range" min="0" max="100" value="65">
+      <label class="field-label" for="position">CAPTION POSITION</label><select id="position"><option value="bottom">Bottom</option><option value="middle">Middle</option><option value="top">Top</option></select>
+      <div class="export-box"><b>Ready to export?</b><small>Download captions in the format you need.</small><div class="export-buttons"><button id="srtBtn">↓ SRT</button><button id="vttBtn">↓ VTT</button><button id="txtBtn">↓ TXT</button></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how"><div class="eyebrow">SIMPLE BY DESIGN</div><h2>From upload to upload-ready.</h2><div class="how-grid"><article><span>01</span><h3>Upload</h3><p>Choose a video or audio clip from your device.</p></article><article><span>02</span><h3>Transcribe</h3><p>Let AI detect speech, or write captions yourself.</p></article><article><span>03</span><h3>Make it yours</h3><p>Edit each line, style the preview, export your captions.</p></article></div></section>
+<footer><a class="brand" href="#"><span class="brand-mark">A</span><span>Auto<span class="brand-accent">Cap</span></span></a><span>Built for creators in India. <b>© 2026 AutoCap by Sachin</b></span></footer>
+</main>
+<script src="/app.js"></script>
+</body></html>

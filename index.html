@@ -35,7 +35,7 @@
       <div class="file-info hidden" id="fileInfo"><span class="file-icon">▣</span><div class="file-meta"><b id="fileName">video.mp4</b><small id="fileSize">0 MB</small></div><button id="removeFile" class="icon-btn" aria-label="Remove file">×</button></div>
       <div class="field-label">CAPTION LANGUAGE</div>
       <select id="language">
-        <option value="auto">Auto-detect language</option><option value="hi">Hindi</option><option value="bn">Bengali</option><option value="en">English</option><option value="gu">Gujarati</option><option value="mr">Marathi</option><option value="ta">Tamil</option><option value="te">Telugu</option><option value="pa">Punjabi</option><option value="ur">Urdu</option><option value="kn">Kannada</option><option value="ml">Malayalam</option>
+        <option value="auto">Auto-detect language</option><option value="hi">Hindi</option><option value="bn">Bengali</option><option value="en">English</option><option value="gu">Gujarati</option><option value="mr">Marathi</option><option value="ta">Tamil</option><option value="te">Telugu</option><option value="pa">Punjabi</option><option value="ur">Urdu</option><option value="kn">Kannada</option><option value="ml">Malayalam</option><option value="or">Odia</option>
       </select>
       <div class="mode-row"><div><b>Caption mode</b><small>Choose how you want to work</small></div><div class="segmented"><button class="active" id="autoMode">✦ Auto AI</button><button id="manualMode">✎ Manual</button></div></div>
       <button class="primary-btn" id="generateBtn"><span>✦</span> Generate captions <span class="arrow">→</span></button>
@@ -59,29 +59,17 @@
   <div class="section-heading"><div><div class="eyebrow">MAKE IT YOURS</div><h2>Caption editor</h2></div><span class="step-label">02 <i>/</i> EDIT</span></div>
   <div class="editor-grid">
     <div class="panel editor-panel">
-      <div class="editor-head"><div><h3>Your transcript</h3><p id="segmentCount">0 caption segments</p></div><button class="small-btn" id="addSegment">＋ Add line</button></div>
-      <div class="segments" id="segments"></div>
+      <div class="editor-head"><div><h3>Your transcript</h3><p id="segmentCount">0 caption segments</p></div><div class="editor-actions"><button class="small-btn" id="saveDraft">Save draft</button><button class="small-btn" id="loadDraft">Load draft</button><button class="small-btn" id="addSegment">＋ Add line</button></div></div>
+      <div class="segments" id="segments"></div><div class="word-editor"><div class="word-head"><b>Word timeline</b><small id="timingNote">Word timings will appear here.</small></div><div id="wordTimeline" class="word-timeline"></div><label class="field-label" for="wordEdit">EDIT SELECTED WORD</label><input id="wordEdit" class="word-edit" placeholder="Tap a word above to edit it" autocomplete="off"></div>
     </div>
     <div class="panel style-panel">
       <h3>Caption style</h3><p>Make every word feel on-brand.</p>
-      <label class="field-label" for="fontSelect">FONT</label><select id="fontSelect"><option value="Arial">Arial</option><option value="Georgia">Georgia</option><option value="Impact">Impact</option><option value="Trebuchet MS">Trebuchet MS</option></select>
+      <label class="field-label" for="styleSelect">CAPTION PRESET</label><select id="styleSelect"><option value="classic">Classic</option><option value="neon">Neon Pop</option><option value="karaoke">Karaoke Highlight</option><option value="bold">Bold Impact</option><option value="clean">Clean Subtitle</option><option value="pink">Pink Pop</option><option value="blue">Electric Blue</option><option value="typewriter">Typewriter</option><option value="outline">Outline</option><option value="minimal">Minimal Serif</option><option value="creator">Creator Lime</option><option value="shadow">Soft Shadow</option></select><label class="field-label" for="fontSelect">FONT</label><select id="fontSelect"><option value="Arial">Arial</option><option value="Georgia">Georgia</option><option value="Impact">Impact</option><option value="Trebuchet MS">Trebuchet MS</option></select>
       <label class="field-label" for="fontSize">TEXT SIZE <span id="fontSizeValue">24px</span></label><input id="fontSize" type="range" min="16" max="42" value="24">
       <label class="field-label">TEXT COLOR</label><div class="swatches"><button data-color="#ffffff" class="swatch selected" style="--swatch:#fff"></button><button data-color="#d9ff55" class="swatch" style="--swatch:#d9ff55"></button><button data-color="#78a7ff" class="swatch" style="--swatch:#78a7ff"></button><button data-color="#ff8eb5" class="swatch" style="--swatch:#ff8eb5"></button><button data-color="#ffd36b" class="swatch" style="--swatch:#ffd36b"></button></div>
       <label class="field-label" for="bgOpacity">BACKGROUND OPACITY <span id="opacityValue">65%</span></label><input id="bgOpacity" type="range" min="0" max="100" value="65">
       <label class="field-label" for="position">CAPTION POSITION</label><select id="position"><option value="bottom">Bottom</option><option value="middle">Middle</option><option value="top">Top</option></select>
-
-      <label class="field-label" for="animation">TEXT ANIMATION</label>
-      <select id="animation">
-        <option value="none">No Animation</option>
-        <option value="word">Word by Word Highlight</option>
-        <option value="pop">Pop / Bounce</option>
-        <option value="typewriter">Typewriter</option>
-        <option value="glow">Glow</option>
-        <option value="shake">Shake</option>
-      </select>
-      <label class="field-label" for="animationSpeed">ANIMATION SPEED <span id="speedValue">2x</span></label>
-      <input id="animationSpeed" type="range" min="1" max="5" value="2">
-      <div class="export-box"><b>Ready to export?</b><small>Download captions in the format you need.</small><div class="export-buttons"><button id="srtBtn">↓ SRT</button><button id="vttBtn">↓ VTT</button><button id="txtBtn">↓ TXT</button></div></div>
+      <div class="export-box"><b>Ready to export?</b><small>Download captions in the format you need.</small><div class="export-buttons"><button id="srtBtn">↓ SRT</button><button id="vttBtn">↓ VTT</button><button id="txtBtn">↓ TXT</button></div><button id="exportMp4Btn" class="mp4-btn">Render captioned MP4</button><small class="privacy-note">MP4 rendering uploads the selected video to this server for processing.</small></div>
     </div>
   </div>
 </section>
@@ -90,77 +78,4 @@
 <footer><a class="brand" href="#"><span class="brand-mark">A</span><span>Auto<span class="brand-accent">Cap</span></span></a><span>Built for creators in India. <b>© 2026 AutoCap by Sachin</b></span></footer>
 </main>
 <script src="/app.js"></script>
-
-<style>
-.caption-overlay .ac-word{display:inline-block;margin-right:.22em}
-.caption-overlay.ac-pop{animation:acPop .48s cubic-bezier(.2,.8,.2,1) both}
-.caption-overlay.ac-glow{animation:acGlow 1.2s ease-in-out infinite alternate}
-.caption-overlay.ac-shake{animation:acShake .32s ease-in-out infinite}
-.caption-overlay.ac-wordmode .ac-word{color:#fff}
-.caption-overlay.ac-wordmode .ac-word.ac-active{color:#d9ff55;text-shadow:0 0 12px #d9ff55}
-@keyframes acPop{0%{transform:scale(.55);opacity:0}70%{transform:scale(1.12);opacity:1}100%{transform:scale(1);opacity:1}}
-@keyframes acGlow{from{text-shadow:0 0 4px currentColor,0 2px 5px #000}to{text-shadow:0 0 8px currentColor,0 0 22px currentColor,0 2px 5px #000}}
-@keyframes acShake{0%,100%{margin-left:0}25%{margin-left:-2px}75%{margin-left:2px}}
-</style>
-<script>
-(() => {
-  const overlay = document.getElementById("captionOverlay");
-  const video = document.getElementById("videoPreview");
-  const animation = document.getElementById("animation");
-  const speed = document.getElementById("animationSpeed");
-  const speedValue = document.getElementById("speedValue");
-  if (!overlay || !video || !animation || !speed) return;
-  let lastSegment = null;
-  const esc = value => String(value).replace(/[&<>"']/g, c =>
-    ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
-
-  function renderCaption() {
-    const t = video.currentTime || 0;
-    const list = (typeof state !== "undefined" && state.segments) ? state.segments : [];
-    const current = list.find(s => t >= Number(s.start) && t <= Number(s.end)) || list[0];
-    const mode = animation.value;
-    const rate = Number(speed.value) || 2;
-    speedValue.textContent = rate + "x";
-    overlay.classList.remove("ac-pop","ac-glow","ac-shake","ac-wordmode");
-    if (!current) {
-      overlay.textContent = "Your captions will appear here.";
-      lastSegment = null;
-      return;
-    }
-    const text = String(current.text || "");
-    const duration = Math.max(.25, Number(current.end) - Number(current.start));
-    const progress = Math.max(0, Math.min(1, (t - Number(current.start)) / duration));
-    if (mode === "typewriter") {
-      const n = Math.max(1, Math.ceil(text.length * Math.min(1, progress * rate * 1.8)));
-      overlay.textContent = text.slice(0, n);
-    } else if (mode === "word") {
-      const words = text.split(/\s+/).filter(Boolean);
-      const active = Math.min(words.length - 1, Math.floor(progress * rate * 2 * words.length));
-      overlay.innerHTML = words.map((w,i) =>
-        `<span class="ac-word ${i === active ? "ac-active" : ""}">${esc(w)}</span>`
-      ).join(" ");
-      overlay.classList.add("ac-wordmode");
-    } else {
-      overlay.textContent = text;
-      if (mode === "pop") overlay.classList.add("ac-pop");
-      if (mode === "glow") overlay.classList.add("ac-glow");
-      if (mode === "shake") overlay.classList.add("ac-shake");
-    }
-    if (current.id !== lastSegment && mode === "pop") {
-      lastSegment = current.id;
-      overlay.classList.remove("ac-pop");
-      void overlay.offsetWidth;
-      overlay.classList.add("ac-pop");
-    } else {
-      lastSegment = current.id;
-    }
-  }
-  window.updateOverlay = renderCaption;
-  video.addEventListener("timeupdate", renderCaption);
-  animation.addEventListener("change", renderCaption);
-  speed.addEventListener("input", renderCaption);
-  renderCaption();
-})();
-</script>
-
 </body></html>
